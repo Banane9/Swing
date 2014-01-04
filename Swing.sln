@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swing", "Swing\Swing.csproj", "{DCFEA911-CD43-41E5-B651-0F2BE8818BA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swing.Api", "Swing.Api\Swing.Api.csproj", "{7FC16C95-AF45-420A-BA0E-500969E41D5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCFEA911-CD43-41E5-B651-0F2BE8818BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFEA911-CD43-41E5-B651-0F2BE8818BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFEA911-CD43-41E5-B651-0F2BE8818BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFEA911-CD43-41E5-B651-0F2BE8818BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC16C95-AF45-420A-BA0E-500969E41D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC16C95-AF45-420A-BA0E-500969E41D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC16C95-AF45-420A-BA0E-500969E41D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC16C95-AF45-420A-BA0E-500969E41D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
