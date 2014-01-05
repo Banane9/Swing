@@ -41,6 +41,10 @@ namespace Swing.Api
             if (typeof(IThrowResult).IsAssignableFrom(ballType)) ThrowResultBalls.Add(ballName, ballType);
 
             return true;
+
+            //Just testing something...
+            //Seesaw s = new Seesaw(Seesaw.TiltTypes.Balanced, 3);
+            //uint w = s.RightBallStack.Weight;
         }
 
         #endregion
