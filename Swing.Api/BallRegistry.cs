@@ -41,11 +41,6 @@ namespace Swing.Api
             if (typeof(IThrowResult).IsAssignableFrom(ballType)) ThrowResultBalls.Add(ballName, ballType);
 
             return true;
-
-            //Just testing something...
-            //Seesaw s = new Seesaw(2, 1);
-            //IEnumerable<Ball> st = s.LeftBallStack;
-            //Ball b = s.LeftBallStack[0];
         }
 
         #endregion

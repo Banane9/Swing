@@ -14,6 +14,6 @@ namespace Swing.Api
         /// Method that gets called for the Tick event.
         /// </summary>
         /// <param name="seesaws"><see cref="List"/> of <see cref="Seesaw"/>s that make up the play grid this is called from. Starts on the left.</param>
-        void OnTick(List<Seesaw> seesaws);
+        void OnTick(List<List<Ball>> seesaws);
     }
 }

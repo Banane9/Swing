@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Swing.Api;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
-namespace Swing.Api
+namespace Swing
 {
     /// <summary>
     /// Represents a Seesaw for <see cref="Ball"/>s.
