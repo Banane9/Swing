@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -10,7 +11,7 @@ namespace Swing.Api
     /// </summary>
     public class Seesaw
     {
-        #region Members
+        #region Members & Properties
 
         /// <summary>
         /// Maximum extension of a Seesaw arm.
@@ -22,24 +23,69 @@ namespace Swing.Api
         /// </summary>
         private byte maximumBallsToThrowUp;
 
+        #region Tilt Type
+
         /// <summary>
         /// To what side the Seesaw is tilted.
         /// </summary>
         private TiltTypes tiltType;
 
+        /// <summary>
+        /// Gets the Tilt Type of the <see cref="Seesaw"/>.
+        /// </summary>
+        public TiltTypes TiltType
+        {
+            get { return tiltType; }
+            private set
+            {
+                if (value != tiltType)
+                {
+                    tiltType = value;
+
+                    if (TiltChanged != null) TiltChanged();
+                }
+            }
+        }
+
         #endregion
 
         #region BallStacks
 
+        #region Left BallStack
+
         /// <summary>
         /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/>.
         /// </summary>
-        public BallStack LeftBallStack { get; private set; }
+        private BallStack leftBallStack;
+
+        /// <summary>
+        /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
+        /// </summary>
+        public IEnumerable<Ball> LeftBallStack
+        {
+            get { return (IEnumerable<Ball>)leftBallStack; }
+        }
+
+        #endregion
+
+        #region Right BallStack
 
         /// <summary>
         /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/>.
         /// </summary>
-        public BallStack RightBallStack { get; private set; }
+        private BallStack rightBallStack;
+
+        /// <summary>
+        /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
+        /// </summary>
+        public IEnumerable<Ball> RightBallStack
+        {
+            get { return (IEnumerable<Ball>)rightBallStack; }
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
 
@@ -55,11 +101,11 @@ namespace Swing.Api
             this.maximumExtension = maximumExtension;
             this.maximumBallsToThrowUp = maximumBallsToThrowUp;
 
-            LeftBallStack = new BallStack();
-            LeftBallStack.WeightChanged += weightingChanged;
+            leftBallStack = new BallStack();
+            leftBallStack.WeightChanged += weightingChanged;
 
-            RightBallStack = new BallStack();
-            RightBallStack.WeightChanged += weightingChanged;
+            rightBallStack = new BallStack();
+            rightBallStack.WeightChanged += weightingChanged;
         }
 
         #endregion
@@ -76,11 +122,11 @@ namespace Swing.Api
             switch (side)
             {
                 case Sides.Left:
-                    LeftBallStack.AddBallOnTop(ball);
+                    leftBallStack.AddBallOnTop(ball);
                     break;
 
                 case Sides.Right:
-                    RightBallStack.AddBallOnTop(ball);
+                    rightBallStack.AddBallOnTop(ball);
                     break;
             }
         }
@@ -92,44 +138,44 @@ namespace Swing.Api
         {
             TiltTypes newTilt = TiltTypes.Balanced;
 
-            if (LeftBallStack.Weight > RightBallStack.Weight)
+            if (leftBallStack.Weight > rightBallStack.Weight)
             {
                 newTilt = TiltTypes.Left;
 
                 if (tiltType != TiltTypes.Balanced)
                 {
-                    uint weightAdded = LeftBallStack.Weight - RightBallStack.Weight;
+                    uint weightAdded = leftBallStack.Weight - rightBallStack.Weight;
 
                     byte ballsThrownUp = 0;
                     uint weightThrownUp = 0;
 
-                    while (weightThrownUp <= weightAdded && RightBallStack.Count() > 0 && ballsThrownUp < maximumBallsToThrowUp)
+                    while (weightThrownUp <= weightAdded && rightBallStack.Count > 0 && ballsThrownUp < maximumBallsToThrowUp)
                     {
                         ballsThrownUp++;
 
-                        Ball ballThrownUp = RightBallStack.TakeTopBall();
+                        Ball ballThrownUp = rightBallStack.TakeTopBall();
                         weightThrownUp += ballThrownUp.Weight;
 
                         if (BallThrownUp != null) BallThrownUp(ballThrownUp);
                     }
                 }
             }
-            else if (RightBallStack.Weight > LeftBallStack.Weight)
+            else if (rightBallStack.Weight > leftBallStack.Weight)
             {
                 newTilt = TiltTypes.Right;
 
                 if (tiltType != TiltTypes.Balanced)
                 {
-                    uint weightAdded = RightBallStack.Weight - LeftBallStack.Weight;
+                    uint weightAdded = rightBallStack.Weight - leftBallStack.Weight;
 
                     byte ballsThrownUp = 0;
                     uint weightThrownUp = 0;
 
-                    while (weightThrownUp <= weightAdded && LeftBallStack.Count() > 0 && ballsThrownUp < maximumBallsToThrowUp)
+                    while (weightThrownUp <= weightAdded && leftBallStack.Count > 0 && ballsThrownUp < maximumBallsToThrowUp)
                     {
                         ballsThrownUp++;
 
-                        Ball ballThrownUp = LeftBallStack.TakeTopBall();
+                        Ball ballThrownUp = leftBallStack.TakeTopBall();
                         weightThrownUp += ballThrownUp.Weight;
 
                         if (BallThrownUp != null) BallThrownUp(ballThrownUp);
@@ -137,10 +183,7 @@ namespace Swing.Api
                 }
             }
 
-            if (newTilt != tiltType)
-            {
-                if (TiltChanged != null) TiltChanged();
-            }
+            TiltType = newTilt;
         }
 
         #endregion
@@ -154,21 +197,19 @@ namespace Swing.Api
         /// </summary>
         private class BallStack : IEnumerable<Ball>
         {
-            #region Members
+            #region Members & Properties
             
             /// <summary>
             /// <see cref="List"/> of <see cref="Ball"/>s in this <see cref="BallStack"/>.
             /// </summary>
             private List<Ball> stack = new List<Ball>();
 
+            #region Weight
+
             /// <summary>
             /// Backing variable for the Weight property.
             /// </summary>
             private uint weight = 0;
-
-            #endregion
-
-            #region Weight Property
 
             /// <summary>
             /// Gets the sum of the weights of all the <see cref="Ball"/>s in the <see cref="BallStack"/>.
@@ -189,6 +230,79 @@ namespace Swing.Api
 
             #endregion
 
+            #region Count
+
+            /// <summary>
+            /// Returns the number of <see cref="Ball"/>s in the <see cref="BallStack"/>.
+            /// </summary>
+            public int Count
+            {
+                get { return stack.Count; }
+            }
+
+            #endregion
+
+            #endregion
+
+            #region Weight Changed Event
+
+            /// <summary>
+            /// Delegate for the WeightChanged Event.
+            /// </summary>
+            public delegate void WeightChangedHandler();
+
+            /// <summary>
+            /// Fires when the Weight of the <see cref="BallStack"/> changed.
+            /// </summary>
+            public event WeightChangedHandler WeightChanged;
+
+            #endregion
+
+            #region IEnumerable Implementation
+
+            /// <summary>
+            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
+            /// </summary>
+            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
+            public IEnumerator<Ball> GetEnumerator()
+            {
+                return stack.GetEnumerator();
+            }
+
+            /// <summary>
+            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
+            /// </summary>
+            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+
+            #endregion
+
+            #region Indexer
+
+            /// <summary>
+            /// Indexes the <see cref="BallStack"/>. Starts at the bottom.
+            /// </summary>
+            /// <param name="index">The index of the <see cref="Ball"/>.</param>
+            /// <returns>The <see cref="Ball"/> at the specified index.</returns>
+            public Ball this[int index]
+            {
+                get
+                {
+                    return stack[index];
+                }
+                private set
+                {
+                    stack[index] = value;
+
+                    Weight = (uint)stack.Sum(stackBall => stackBall.Weight);
+                }
+            }
+
+            #endregion
+
             #region Stack Modification
 
             /// <summary>
@@ -197,12 +311,12 @@ namespace Swing.Api
             /// <param name="ball">The <see cref="Ball"/> that will be added to the <see cref="BallStack"/>.</param>
             public void AddBallOnTop(Ball ball)
             {
-                stack.LastOrDefault().DroppedOnBy(ball);
-                ball.DropsOn(stack.LastOrDefault());
+                Ball topBall = stack.LastOrDefault();
+
+                topBall.DroppedOnBy(ball);
+                ball.DropsOn(topBall);
 
                 stack.Add(ball);
-
-                Weight = (uint)stack.Sum(stackBall => stackBall.Weight);
             }
 
             /// <summary>
@@ -215,44 +329,8 @@ namespace Swing.Api
 
                 stack.RemoveAt(stack.Count - 1);
 
-                Weight = (uint)stack.Sum(stackBall => stackBall.Weight);
-
                 return ball;
             }
-
-            #endregion
-
-            #region IEnumerable Implementation
-
-            /// <summary>
-            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
-            /// </summary>
-            /// <returns></returns>
-            public IEnumerator<Ball> GetEnumerator()
-            {
-                return stack.GetEnumerator();
-            }
-
-            #endregion
-
-            #region Indexing
-
-            /// <summary>
-            /// Indexes the <see cref="BallStack"/>. Starts at the bottom.
-            /// </summary>
-            /// <param name="index">The index of the <see cref="Ball"/>.</param>
-            /// <returns>The <see cref="Ball"/> at the specified index.</returns>
-            public Ball this[int index]
-	        {
-                get { return stack[index]; }
-	        }
-
-            #endregion
-
-            #region Weight Changed Event
-
-            public delegate void WeightChangedHandler();
-            public event WeightChangedHandler WeightChanged;
 
             #endregion
         }
@@ -262,9 +340,9 @@ namespace Swing.Api
         #region TiltTypes
 
         /// <summary>
-        /// Represents the possible directions a <see cref="Seesaw"/> can be tilted to.
+        /// Represents the possible ways a <see cref="Seesaw"/> can be tilted.
         /// </summary>
-        public static enum TiltTypes
+        public enum TiltTypes
         {
             Balanced,
             Left,
@@ -278,7 +356,7 @@ namespace Swing.Api
         /// <summary>
         /// Represents the possible sides of a <see cref="Seesaw"/>.
         /// </summary>
-        public static enum Sides
+        public enum Sides
         {
             Left,
             Right

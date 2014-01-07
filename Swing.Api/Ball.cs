@@ -32,13 +32,13 @@ namespace Swing.Api
         #region Methods
 
         /// <summary>
-        /// Gets executed when the <see cref="Ball"/> is dropped another <see cref="Ball"/>. Doesn't do anything.
+        /// Gets executed when the <see cref="Ball"/> is dropped another <see cref="Ball"/>. Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> this <see cref="Ball"/> is dropped onto.</param>
         public virtual void DropsOn(Ball ball) { }
 
         /// <summary>
-        /// Gets executed when another <see cref="Ball"/> gets dropped on it. Doesn't do anything.
+        /// Gets executed when another <see cref="Ball"/> gets dropped on it. Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> that is dropped onto this <see cref="Ball"/>.</param>
         public virtual void DroppedOnBy(Ball ball) { }
