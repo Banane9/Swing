@@ -27,7 +27,7 @@ namespace Swing.Api
         /// </summary>
         public bool IsPlayable { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -35,14 +35,47 @@ namespace Swing.Api
         /// Gets executed when the <see cref="Ball"/> is dropped another <see cref="Ball"/>. Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> this <see cref="Ball"/> is dropped onto.</param>
-        public virtual void DropsOn(Ball ball) { }
+        public virtual void DropsOn(Ball ball)
+        {
+        }
 
         /// <summary>
         /// Gets executed when another <see cref="Ball"/> gets dropped on it. Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> that is dropped onto this <see cref="Ball"/>.</param>
-        public virtual void DroppedOnBy(Ball ball) { }
+        public virtual void DroppedOnBy(Ball ball)
+        {
+        }
 
-        #endregion
+        /// <summary>
+        /// Provides a string representation of the Ball.
+        /// </summary>
+        /// <returns>The Name of the Ball.</returns>
+        public static string ToString()
+        {
+            return Information.Name;
+        }
+
+        #endregion Methods
+
+        #region Information
+
+        /// <summary>
+        /// Represents the Information about a Ball.
+        /// </summary>
+        public abstract class Information
+        {
+            /// <summary>
+            /// Gets the Name of the Ball.
+            /// </summary>
+            public static readonly string Name = "Abstract Ball";
+
+            /// <summary>
+            /// Gets the Description of the Ball.
+            /// </summary>
+            public static readonly string Description = "The Base of every Ball.";
+        }
+
+        #endregion Information
     }
 }

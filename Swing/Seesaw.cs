@@ -45,7 +45,7 @@ namespace Swing
             }
         }
 
-        #endregion
+        #endregion Tilt Type
 
         #region BallStacks
 
@@ -64,7 +64,7 @@ namespace Swing
             get { return (IEnumerable<Ball>)leftBallStack; }
         }
 
-        #endregion
+        #endregion Left BallStack
 
         #region Right BallStack
 
@@ -81,11 +81,11 @@ namespace Swing
             get { return (IEnumerable<Ball>)rightBallStack; }
         }
 
-        #endregion
+        #endregion Right BallStack
 
-        #endregion
+        #endregion BallStacks
 
-        #endregion
+        #endregion Members & Properties
 
         #region Constructor
 
@@ -106,7 +106,7 @@ namespace Swing
             rightBallStack.WeightChanged += weightingChanged;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -184,7 +184,7 @@ namespace Swing
             TiltType = newTilt;
         }
 
-        #endregion
+        #endregion Methods
 
         #region Internal Types
 
@@ -196,7 +196,7 @@ namespace Swing
         private class BallStack : IEnumerable<Ball>
         {
             #region Members & Properties
-            
+
             /// <summary>
             /// <see cref="List"/> of <see cref="Ball"/>s in this <see cref="BallStack"/>.
             /// </summary>
@@ -226,7 +226,7 @@ namespace Swing
                 }
             }
 
-            #endregion
+            #endregion Weight
 
             #region Count
 
@@ -238,9 +238,9 @@ namespace Swing
                 get { return stack.Count; }
             }
 
-            #endregion
+            #endregion Count
 
-            #endregion
+            #endregion Members & Properties
 
             #region Weight Changed Event
 
@@ -254,7 +254,7 @@ namespace Swing
             /// </summary>
             public event WeightChangedHandler WeightChanged;
 
-            #endregion
+            #endregion Weight Changed Event
 
             #region IEnumerable Implementation
 
@@ -276,7 +276,7 @@ namespace Swing
                 return GetEnumerator();
             }
 
-            #endregion
+            #endregion IEnumerable Implementation
 
             #region Indexer
 
@@ -299,7 +299,7 @@ namespace Swing
                 }
             }
 
-            #endregion
+            #endregion Indexer
 
             #region Stack Modification
 
@@ -330,10 +330,10 @@ namespace Swing
                 return ball;
             }
 
-            #endregion
+            #endregion Stack Modification
         }
 
-        #endregion
+        #endregion BallStack
 
         #region TiltTypes
 
@@ -347,7 +347,7 @@ namespace Swing
             Right
         }
 
-        #endregion
+        #endregion TiltTypes
 
         #region Sides
 
@@ -360,9 +360,9 @@ namespace Swing
             Right
         }
 
-        #endregion
+        #endregion Sides
 
-        #endregion
+        #endregion Internal Types
 
         #region Events
 
@@ -378,7 +378,7 @@ namespace Swing
         /// </summary>
         public event TiltChangedHandler TiltChanged;
 
-        #endregion
+        #endregion Balance Changed
 
         #region Ball Thrown Up
 
@@ -393,8 +393,8 @@ namespace Swing
         /// </summary>
         public event BallThrownUpHandler BallThrownUp;
 
-        #endregion
+        #endregion Ball Thrown Up
 
-        #endregion
-    } 
+        #endregion Events
+    }
 }
