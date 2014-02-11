@@ -17,7 +17,7 @@ namespace Swing.Api
         /// <exception cref="System.ArgumentException"/>
         private static void throwIfNotBall(Type type, string senderFunction)
         {
-            if (!type.IsSubclassOf(typeof(Ball))) throw new ArgumentException(senderFunction + " can only be with on Subclasses of the Ball Class.", "ballType");
+            if (!type.IsSubclassOf(typeof(Ball))) throw new ArgumentException(senderFunction + " can only be on Subclasses of the Ball Class.", "ballType");
         }
 
         #endregion Type Check Helper
@@ -111,7 +111,7 @@ namespace Swing.Api
         #region PlayerLevel
 
         /// <summary>
-        /// Returns the level that the Player must have for the <see cref="Ball"/> to appear.
+        /// Returns the level that the Player must have for the <see cref="Ball"/> to appear. Degfaults to 0 if no attribute is present.
         /// </summary>
         /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> the level is wanted for.</param>
         /// <returns>The level at which the <see cref="Ball"/> starts to appear.</returns>
@@ -182,29 +182,12 @@ namespace Swing.Api
 
         #endregion SpecialDroppedBalls
 
-        #region HasThrowResult
-
-        /// <summary>
-        /// Returns whether the <see cref="Ball"/> has a Throw Result.
-        /// </summary>
-        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> that the check is wanted for.</param>
-        /// <returns>Whether the <see cref="Ball"/> has a Throw Result.</returns>
-        /// <exception cref="System.ArgumentException"/>
-        public static bool GetBallHasThrowResult(Type ballType)
-        {
-            throwIfNotBall(ballType, "GetBallHasThrowResult");
-
-            return ballType.GetCustomAttributes(typeof(ThrowResultsInAttribute), false).Count() > 0;
-        }
-
-        #endregion HasThrowResult
-
         #region ThrowResultsIn
 
         /// <summary>
         /// Returns the Type of the <see cref="Ball"/> that results in this <see cref="Ball"/> being thrown.
         /// </summary>
-        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> that the resulting <see cref="Ball"/>'s <see cref="Type"/> is wanted for. Use GetBallHasThrowResult(ballType) to check whether it has a Throw Result.</param>
+        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> that the resulting <see cref="Ball"/>'s <see cref="Type"/> is wanted for. Returns the passed in <see cref="Type"/> if it doesn't have the Attribute.</param>
         /// <returns>The <see cref="Type"/> of the resulting <see cref="Ball"/>.</returns>
         /// <exception cref="System.ArgumentException"/>
         public static Type GetBallThrowResultsInType(Type ballType)
@@ -213,9 +196,7 @@ namespace Swing.Api
 
             ThrowResultsInAttribute[] throwResultsInAttributes = (ThrowResultsInAttribute[])ballType.GetCustomAttributes(typeof(ThrowResultsInAttribute), false);
 
-            if (throwResultsInAttributes.Count() == 0) throw new ArgumentException("Ball needs to have ThrowResultsIn Attribute for this. Use GetBallHasThrowResult(ballType) to check.", "ballType");
-
-            return throwResultsInAttributes.First().BallType;
+            return throwResultsInAttributes.Count() > 0 ? throwResultsInAttributes.First().BallType : ballType;
         }
 
         #endregion ThrowResultsIn
