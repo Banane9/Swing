@@ -2,7 +2,9 @@
 using Swing.Balls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Swing.ConsoleTest
@@ -11,27 +13,26 @@ namespace Swing.ConsoleTest
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Standard Ball Name: " + StandardBall.ToString());
-            Console.WriteLine("Spiked Ball Name: " + SpikeBall.ToString());
-            Console.WriteLine("Ball Name: " + Ball.Information.Name);
-            //MakeList<Ball>(new StandardBall(), new SpikeBall()).ForEach(Console.WriteLine);
+            Console.WriteLine("Standard Ball Name: " + Ball.GetBallName(typeof(StandardBall)));
+            Console.WriteLine("Standard Ball Description: " + Ball.GetBallDescription(typeof(StandardBall)));
+            Console.WriteLine("Standard Ball IsSpecial: " + Ball.GetBallIsSpecial(typeof(StandardBall)));
+            //Console.WriteLine("Standard Ball Special DroppedBalls: " + Ball.GetBallSpecialDroppedBalls(typeof(StandardBall)));
+            Console.WriteLine("Spiked Ball ToString: " + new SpikeBall().ToString());
+            Console.WriteLine("Spiked Ball Description: " + Ball.GetBallDescription(typeof(SpikeBall)));
 
             //Apparently the static constructor only gets called once a static direct member of the class is called
-            foreach (KeyValuePair<string, Type> ball in BallRegistry.StandardBalls)
-            {
-                Console.WriteLine(ball.Key + ": " + ball.Value.InvokeMember("ToString", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod, null, null, null));
-            }
+
+            //foreach (KeyValuePair<string, CultureInfo> culture in new Dictionary<string, CultureInfo> { { "Current Culture", CultureInfo.CurrentCulture }, { "Current UI Culture", CultureInfo.CurrentUICulture }, { "Installed UI Culture", CultureInfo.InstalledUICulture }, { "Invariant Culture", CultureInfo.InvariantCulture } })
+            //{
+            //    Console.WriteLine(culture.Key + ":");
+
+            //    foreach (PropertyInfo propertyInfo in typeof(CultureInfo).GetProperties())
+            //    {
+            //        Console.WriteLine("    " + propertyInfo.Name + ": " + propertyInfo.GetValue(culture.Value, null));
+            //    }
+            //    Console.WriteLine();
+            //}
             Console.ReadLine();
         }
-
-        //Derping in IRC :D
-        //public static List<T> MakeList<T>(params T[] items)
-        //{
-        //    List<T> list = new List<T>();
-        //    foreach (T item in items)
-        //    { list.Add(item); }
-
-        //    return list;
-        //}
     }
 }
