@@ -33,11 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Ball.cs" />
+    <Compile Include="Ball.AttributeGetters.cs" />
+    <Compile Include="Ball.Methods.cs" />
+    <Compile Include="Ball.Properties.cs" />
     <Compile Include="BallRegistry.cs" />
     <Compile Include="IThrowResult.cs" />
     <Compile Include="ITicking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ball.Attributes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
