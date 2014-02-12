@@ -149,8 +149,8 @@ namespace Swing.Api
         /// <summary>
         /// Returns whether the <see cref="Ball"/> is special.
         /// </summary>
-        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> that the check is wanted for.</param>
-        /// <returns>Whether the <see cref="Ball"/> is special.</returns>
+        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Swing.Api.Ball"/> that the check is wanted for.</param>
+        /// <returns>Whether the <see cref="Swing.Api.Ball"/> is special.</returns>
         /// <exception cref="System.ArgumentException"/>
         public static bool GetBallIsSpecial(Type ballType)
         {
@@ -161,13 +161,30 @@ namespace Swing.Api
 
         #endregion IsSpecial
 
+        #region IsUnmodifiable
+
+        /// <summary>
+        /// Returns whether the <see cref="Swing.Api.Ball"/> is unmodifiable.
+        /// </summary>
+        /// <param name="ballType">The <see cref="Sstem.Type"/> of the <see cref="Swing.Api.Ball"/> that the check is wanted for.</param>
+        /// <returns>Whether the <see cref="Swing.Api.Ball"/> is unmodifiable.</returns>
+        /// <exception cref="System.ArgumentException"/>
+        public static bool GetBallIsUnmodifiable(Type ballType)
+        {
+            throwIfNotBall(ballType, "GetBallIsUnmodifiable");
+
+            return ballType.GetCustomAttributes(typeof(UnmodifiableAttribute), false).Count() > 0;
+        }
+
+        #endregion IsUnmodifiable
+
         #region SpecialDroppedBalls
 
         /// <summary>
-        /// Returns the number of <see cref="Ball"/>s that have to be dropped between appearances of the special <see cref="Ball"/>.
+        /// Returns the number of <see cref="Swing.Api.Ball"/>s that have to be dropped between appearances of the special <see cref="Swing.Api.Ball"/>.
         /// </summary>
-        /// <param name="ballType">The <see cref="Type"/> of the <see cref="Ball"/> that the number of <see cref="Ball"/>s that have to be dropped is wanted for. Use GetBallIsSpecial(ballType) to check whether it's a special <see cref="Ball"/>.</param>
-        /// <returns>The number of <see cref="Ball"/>s that have to be dropped between appearances.</returns>
+        /// <param name="ballType">The <see cref="System.Type"/> of the <see cref="Swing.Api.Ball"/> that the number of <see cref="Swing.Api.Ball"/>s that have to be dropped is wanted for. Use GetBallIsSpecial(ballType) to check whether it's a special <see cref="Swing.Api.Ball"/>.</param>
+        /// <returns>The number of <see cref="Swing.Api.Ball"/>s that have to be dropped between appearances.</returns>
         /// <exception cref="System.ArgumentException"/>
         public static uint GetBallSpecialDroppedBalls(Type ballType)
         {
@@ -175,8 +192,8 @@ namespace Swing.Api
 
             SpecialAttribute[] specialAttributes = (SpecialAttribute[])ballType.GetCustomAttributes(typeof(SpecialAttribute), false);
 
-            if (specialAttributes.Length == 0) throw new ArgumentException("Ball needs to have the Special Attribute for this. Use GetBallIsSpecial(ballType) to check.", "ballType");
-
+            if (specialAttributes.Length == 0) throw new ArgumentException("Ball needs to have the SpecialAttribute for this. Use GetBallIsSpecial(ballType) to check.", "ballType");
+            
             return specialAttributes.First().DroppedBalls;
         }
 
@@ -200,5 +217,42 @@ namespace Swing.Api
         }
 
         #endregion ThrowResultsIn
+
+        #region IsCompressable
+
+        /// <summary>
+        /// Returns whether the <see cref="Swing.Api.Ball"/> is compressable.
+        /// </summary>
+        /// <param name="ballType">The <see cref="System.Type"/> of the <see cref="Swing.Api.Ball"/> that the check is wanted for.</param>
+        /// <returns>Returns whether the <see cref="Swing.Api.Ball"/> is compressable.</returns>
+        public static bool GetBallIsCompressable(Type ballType)
+        {
+            throwIfNotBall(ballType, "GetBallIsCompressable");
+
+            return ballType.GetCustomAttributes(typeof(CompressableAttribute), false).Count() > 0;
+        }
+
+        #endregion
+
+        #region RequiredBallsForCompression
+
+        /// <summary>
+        /// Returns the number of <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress down into one.
+        /// </summary>
+        /// <param name="ballType">The <see cref="System.Type"/> of the <see cref="Swing.Api.Ball"/> that number of stacked <see cref="Swing.Api.Ball"/>s until they compress is wanted for. USe GetBallIsCompressable(ballType) to check whether it's a compressable <see cref="Swing.Api.Ball"/>.</param>
+        /// <returns>The number of <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress.</returns>
+        /// <exception cref="System.ArgumentException"/>
+        public static byte GetBallRequiredBallsForCompression(Type ballType)
+        {
+            throwIfNotBall(ballType, "GetBallRequiredBallsForCompression");
+
+            CompressableAttribute[] compressableAttributes = (CompressableAttribute[])ballType.GetCustomAttributes(typeof(CompressableAttribute), false);
+
+            if (compressableAttributes.Length == 0) throw new ArgumentException("Ball needs to have the CompressableAttribute for this. Use GetBallIsCompressable(ballType) to check.", "ballType");
+
+            return compressableAttributes.First().RequiredBalls;
+        }
+
+        #endregion
     }
 }

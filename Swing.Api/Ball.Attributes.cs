@@ -10,7 +10,7 @@ namespace Swing.Api
         #region Name
 
         /// <summary>
-        /// Represents the Name of the <see cref="Ball"/> it is used on and the language the Name is for. Can only be used on Classes derived from <see cref="Ball"/>. Can (and should) be used more than once.
+        /// Represents the Name of the <see cref="Swing.Api.Ball"/> it is used on and the language the Name is for. Can only be used on Classes derived from <see cref="Swing.Api.Ball"/>. Can (and should) be used more than once.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
         protected sealed class NameAttribute : Attribute
@@ -21,12 +21,12 @@ namespace Swing.Api
             public readonly string Language;
 
             /// <summary>
-            /// Gets the Name for the <see cref="Ball"/> it was used on.
+            /// Gets the Name for the <see cref="Swing.Api.Ball"/> it was used on.
             /// </summary>
             public readonly string Name;
 
             /// <summary>
-            /// Initializes a <see cref="NameAttribute"/> for the <see cref="Ball"/>.
+            /// Initializes a <see cref="Swing.Api.Ball.NameAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
             /// <param name="language">Two letter code for the language the Name is for.</param>
             /// <param name="name">Name of the Ball.</param>
@@ -45,7 +45,7 @@ namespace Swing.Api
         #region Description
 
         /// <summary>
-        /// Represents the Description of the <see cref="Ball"/> it is used on and the language the Description is for. Can only be used on Classes derived from <see cref="Ball"/>. Can (and should) be used more than once.
+        /// Represents the Description of the <see cref="Swing.Api.Ball"/> it is used on and the language the Description is for. Can only be used on Classes derived from <see cref="Swing.Api.Ball"/>. Can (and should) be used more than once.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
         protected sealed class DescriptionAttribute : Attribute
@@ -56,16 +56,16 @@ namespace Swing.Api
             public readonly string Language;
 
             /// <summary>
-            /// Gets the Description for the <see cref="Ball"/> it was used on.
+            /// Gets the Description for the <see cref="Swing.Api.Ball"/> it was used on.
             /// </summary>
             public readonly string Description;
 
             /// <summary>
-            /// Initialized a <see cref="DescriptionAttribute"/> for the <see cref="Ball"/>.
+            /// Initialized a <see cref="Swing.Api.Ball.DescriptionAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
             /// <param name="language">Two letter code for the language the Description is for.</param>
-            /// <param name="description">Description of the Ball.</param>
-            /// <exception cref="System.ArgumentException"/>
+            /// <param name="description">Description of the <see cref="Swing.Api.Ball"/>.</param>
+            /// <exception cref="ArgumentException"/>
             public DescriptionAttribute(string language, string description)
             {
                 if (language.Length != 2) throw new ArgumentException("Language needs to be a two letter code.", "language");
@@ -80,7 +80,7 @@ namespace Swing.Api
         #region Sprite
 
         /// <summary>
-        /// Represents the Information about the Sprite of the <see cref="Ball"/> it is used on.
+        /// Represents the Information about the Sprite of the <see cref="Swing.Api.Ball"/> it is used on.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
         protected sealed class SpriteAttribute : Attribute
@@ -91,7 +91,7 @@ namespace Swing.Api
             public readonly string Path;
 
             /// <summary>
-            /// Initializes a <see cref="SpriteAttribute"/> for the <see cref="Ball"/>.
+            /// Initializes a <see cref="Swing.Api.Ball.SpriteAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
             /// <param name="path">Path of the Sprite.</param>
             public SpriteAttribute(string path)
@@ -105,20 +105,20 @@ namespace Swing.Api
         #region Level
 
         /// <summary>
-        /// Represents the level that the Player must have before the <see cref="Ball"/> it is used on starts to appear.
+        /// Represents the level that the Player must have before the <see cref="Swing.Api.Ball"/> it is used on starts to appear.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
         protected sealed class LevelAttribute : Attribute
         {
             /// <summary>
-            /// Gets the level that the Player must have before this <see cref="Ball"/> appears.
+            /// Gets the level that the Player must have before this <see cref="Swing.Api.Ball"/> appears.
             /// </summary>
             public readonly uint PlayerLevel;
 
             /// <summary>
-            /// Initializes a <see cref="LevelAttribute"/> for the <see cref="Ball"/>.
+            /// Initializes a <see cref="Swing.Api.Ball.LevelAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
-            /// <param name="playerLevel">Level the Player must have before this <see cref="Ball"/> appears.</param>
+            /// <param name="playerLevel">Level the Player must have before this <see cref="Swing.Api.Ball"/> appears.</param>
             public LevelAttribute(uint playerLevel)
             {
                 PlayerLevel = playerLevel;
@@ -130,30 +130,36 @@ namespace Swing.Api
         #region AppearsInReservoir
 
         /// <summary>
-        /// Marks the <see cref="Ball"/> it is used on as being able to appear in the Ball Reservoir.
+        /// Marks the <see cref="Swing.Api.Ball"/> it is used on as being able to appear in the Ball Reservoir.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
-        protected sealed class AppearsInReservoirAttribute : Attribute { }
+        protected sealed class AppearsInReservoirAttribute : Attribute
+        {
+			/// <summary>
+            /// Initializes a <see cref="Swing.Api.Ball.AppearsInReservoirAttribute"/> for the <see cref="Swing.Api.Ball"/>.
+			/// </summary>
+            public AppearsInReservoirAttribute() { }
+        }
 
         #endregion AppearsInReservoir
 
         #region Special
 
         /// <summary>
-        /// Marks the <see cref="Ball"/> it is used on as Special and stores how many <see cref="Ball"/>s have to be dropped between appearances of it.
+        /// Marks the <see cref="Swing.Api.Ball"/> it is used on as Special and stores how many <see cref="Swing.Api.Ball"/>s have to be dropped between appearances of it.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
         protected sealed class SpecialAttribute : Attribute
         {
             /// <summary>
-            /// Gets the number of <see cref="Ball"/>s that have to be dropped.
+            /// Gets the number of <see cref="Swing.Api.Ball"/>s that have to be dropped.
             /// </summary>
             public readonly uint DroppedBalls;
 
             /// <summary>
-            /// Initializes a <see cref="SpecialAttribute"/> for the <see cref="Ball"/>.
+            /// Initializes a <see cref="Swing.Api.Ball.SpecialAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
-            /// <param name="droppedBalls">Number of <see cref="Ball"/>s that have to be dropped.</param>
+            /// <param name="droppedBalls">Number of <see cref="Swing.Api.Ball"/>s that have to be dropped.</param>
             public SpecialAttribute(uint droppedBalls)
             {
                 DroppedBalls = droppedBalls;
@@ -162,23 +168,39 @@ namespace Swing.Api
 
         #endregion Special
 
+        #region Unmodifiable
+
+		/// <summary>
+        /// Marks the <see cref="Swing.Api.Ball"/> it is used on as being unaffected by special <see cref="Swing.Api.Ball"/>s that modify other <see cref="Swing.Api.Ball"/>s.
+		/// </summary>
+		[AttributeUsage(AttributeTargets.Class)]
+		protected sealed class UnmodifiableAttribute : Attribute
+        {
+			/// <summary>
+            /// Initializes a <see cref="Swing.Api.Ball.UnmodifableAttribute"/> for the <see cref="Swing.Api.Ball"/>.
+			/// </summary>
+            public UnmodifiableAttribute() { }
+        }
+
+        #endregion Modifiable
+
         #region ThrowResultsIn
 
         /// <summary>
-        /// Marks the <see cref="Ball"/> it is used on as having a different result when thrown around and stores the <see cref="Type"/> of the resulting <see cref="Ball"/>.
+        /// Marks the <see cref="Swing.Api.Ball"/> it is used on as having a different result when thrown around and stores the <see cref="Type"/> of the resulting <see cref="Swing.Api.Ball"/>.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
         protected sealed class ThrowResultsInAttribute : Attribute
         {
             /// <summary>
-            /// Gets the <see cref="Type"/> of the resulting <see cref="Ball"/>.
+            /// Gets the <see cref="System.Type"/> of the resulting <see cref="Swing.Api.Ball"/>.
             /// </summary>
             public readonly Type BallType;
 
             /// <summary>
-            /// Initializes a <see cref="ThrowResultsInAttribute"/> for the <see cref="Ball"/>.
+            /// Initializes a <see cref="Swing.Api.Ball.ThrowResultsInAttribute"/> for the <see cref="Swing.Api.Ball"/>.
             /// </summary>
-            /// <param name="ballType"><see cref="Type"/> of the resulting <see cref="Ball"/>.</param>
+            /// <param name="ballType"><see cref="System.Type"/> of the resulting <see cref="Swing.Api.Ball"/>.</param>
             /// <exception cref="System.ArgumentException"/>
             public ThrowResultsInAttribute(Type ballType)
             {
@@ -189,5 +211,33 @@ namespace Swing.Api
         }
 
         #endregion ThrowResultsIn
+
+        #region Compressable
+
+		/// <summary>
+        /// Marks the <see cref="Swing.Api.Ball"/> it is used on as being compressable and stores at which number of stacked <see cref="Swing.Api.Ball"/>s the compression occurs.
+		/// </summary>
+        [AttributeUsage(AttributeTargets.Class)]
+		protected sealed class CompressableAttribute : Attribute
+        {
+			/// <summary>
+            /// The number of <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress down into one.
+			/// </summary>
+            public readonly byte RequiredBalls;
+
+			/// <summary>
+            /// Initializes a <see cref="Swing.Api.Ball.CompressableAttribute"/> for the <see cref="Swing.Api.Ball"/>.
+			/// </summary>
+            /// <param name="requiredBalls">Number of required <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress.</param>
+            /// <exception cref="System.ArgumentException"/>
+			public CompressableAttribute(byte requiredBalls)
+            {
+                if (requiredBalls < 2) throw new ArgumentException("More than two Balls need to be required.", "requiredBalls");
+
+                RequiredBalls = requiredBalls;
+            }
+        }
+
+        #endregion Compressable
     }
 }

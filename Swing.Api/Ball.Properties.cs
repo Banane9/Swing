@@ -19,7 +19,7 @@ namespace Swing.Api
         /// <summary>
         /// Gets the weight of the Ball.
         /// </summary>
-        public byte Weight { get; private set; }
+        public uint Weight { get; private set; }
 
         #endregion Weight
     }
