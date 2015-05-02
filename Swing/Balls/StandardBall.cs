@@ -74,7 +74,7 @@ namespace Swing.Balls
         public override Ball GetThrowResult(Game game)
         {
             // return new HeartBall(this);
-            return base.GetThrowResult();
+            return base.GetThrowResult(game);
         }
 
         public override bool Matches(Ball other)

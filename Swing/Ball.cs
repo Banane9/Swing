@@ -84,8 +84,9 @@ namespace Swing
         /// <para/>
         /// Returns itself by default.
         /// </summary>
+        /// <param name="game">The current game.</param>
         /// <returns>The <see cref="Ball"/> that this one turns into when thrown off screen.</returns>
-        public virtual Ball GetThrowResult()
+        public virtual Ball GetThrowResult(Game game)
         {
             return this;
         }
