@@ -23,5 +23,10 @@ namespace Swing
         /// Gets or sets the minimum weight for the <see cref="StandardBall"/>s of the game.
         /// </summary>
         public uint MinWeight { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="PlayingField"/> of the game.
+        /// </summary>
+        public PlayingField PlayingField { get; private set; }
     }
 }
