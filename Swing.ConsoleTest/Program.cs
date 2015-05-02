@@ -1,11 +1,6 @@
-﻿using Swing.Api;
-using Swing.Balls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Swing.ConsoleTest
 {
@@ -13,12 +8,12 @@ namespace Swing.ConsoleTest
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Standard Ball Name: " + Ball.GetBallName(typeof(StandardBall)));
-            Console.WriteLine("Standard Ball Description: " + Ball.GetBallDescription(typeof(StandardBall)));
-            Console.WriteLine("Standard Ball IsSpecial: " + Ball.GetBallIsSpecial(typeof(StandardBall)));
+            //Console.WriteLine("Standard Ball Name: " + Ball.GetBallName(typeof(StandardBall)));
+            //Console.WriteLine("Standard Ball Description: " + Ball.GetBallDescription(typeof(StandardBall)));
+            //Console.WriteLine("Standard Ball IsSpecial: " + Ball.GetBallIsSpecial(typeof(StandardBall)));
             //Console.WriteLine("Standard Ball Special DroppedBalls: " + Ball.GetBallSpecialDroppedBalls(typeof(StandardBall)));
-            Console.WriteLine("Spiked Ball ToString: " + new SpikeBall().ToString());
-            Console.WriteLine("Spiked Ball Description: " + Ball.GetBallDescription(typeof(SpikeBall)));
+            //Console.WriteLine("Spiked Ball ToString: " + new SpikeBall().ToString());
+            //Console.WriteLine("Spiked Ball Description: " + Ball.GetBallDescription(typeof(SpikeBall)));
 
             //Apparently the static constructor only gets called once a static direct member of the class is called
 

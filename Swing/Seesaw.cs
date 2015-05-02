@@ -1,5 +1,4 @@
-﻿using Swing.Api;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Swing
@@ -12,14 +11,14 @@ namespace Swing
         #region Members & Properties
 
         /// <summary>
-        /// Maximum extension of a Seesaw arm.
-        /// </summary>
-        private byte maximumExtension;
-
-        /// <summary>
         /// How many balls to throw up if the tilt changes significantly enough.
         /// </summary>
         private byte maximumBallsToThrowUp;
+
+        /// <summary>
+        /// Maximum extension of a Seesaw arm.
+        /// </summary>
+        private byte maximumExtension;
 
         #region Tilt Type
 

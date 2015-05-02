@@ -1,5 +1,4 @@
-﻿using Swing.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +10,8 @@ namespace Swing.Balls
     public sealed class StandardBall : Ball
     {
         private static readonly List<Sprite> sprites = new List<Sprite>();
+        private Sprite sprite;
+        private uint weight;
 
         public override bool AppearsInReservoir
         {
@@ -52,9 +53,15 @@ namespace Swing.Balls
             get { return 4; }
         }
 
-        public override Sprite Sprite { get; set; }
+        public override Sprite Sprite
+        {
+            get { return sprite; }
+        }
 
-        public override uint Weight { get; private set; }
+        public override uint Weight
+        {
+            get { return weight; }
+        }
 
         public override Ball GetThrowResult()
         {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Swing
 {
-    internal class Sprite
+    public class Sprite
     {
     }
 }

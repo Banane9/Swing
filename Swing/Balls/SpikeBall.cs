@@ -1,5 +1,4 @@
-﻿using Swing.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,11 +50,6 @@ namespace Swing.Balls
         }
 
         public override Sprite Sprite
-        {
-            get { return null; }
-        }
-
-        public override Type ThrowResult
         {
             get { return null; }
         }
