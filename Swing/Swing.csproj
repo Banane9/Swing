@@ -38,8 +38,6 @@
     <Compile Include="BallReservoir.cs" />
     <Compile Include="Balls\SpikeBall.cs" />
     <Compile Include="Balls\StandardBall.cs" />
-    <Compile Include="IThrowResult.cs" />
-    <Compile Include="ITicking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seesaw.cs" />
     <Compile Include="Sprite.cs" />

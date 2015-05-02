@@ -55,17 +55,14 @@ namespace Swing.Api
         public abstract Sprite Sprite { get; }
 
         /// <summary>
-        /// Gets the <see cref="Type"/> of <see cref="Ball"/> that this one turns into when thrown off screen.
-        /// </summary>
-        public abstract Type ThrowResult { get; }
-
-        /// <summary>
         /// Gets the weight of the Ball.
         /// </summary>
         public abstract uint Weight { get; }
 
         /// <summary>
-        /// Gets executed when another <see cref="Ball"/> gets dropped on it. Doesn't do anything by default.
+        /// Gets executed when another <see cref="Ball"/> gets dropped on it.
+        /// <para/>
+        /// Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> that is dropped onto this <see cref="Ball"/>.</param>
         public virtual void DroppedOnBy(Ball ball)
@@ -73,11 +70,36 @@ namespace Swing.Api
         }
 
         /// <summary>
-        /// Gets executed when the <see cref="Ball"/> is dropped another <see cref="Ball"/>. Doesn't do anything by default.
+        /// Gets executed when the <see cref="Ball"/> is dropped on another <see cref="Ball"/>.
+        /// <para/>
+        /// Doesn't do anything by default.
         /// </summary>
         /// <param name="ball">The <see cref="Ball"/> this <see cref="Ball"/> is dropped onto.</param>
         public virtual void DropsOn(Ball ball)
         {
+        }
+
+        /// <summary>
+        /// Creates the <see cref="Ball"/> that this one turns into when thrown off screen.
+        /// <para/>
+        /// Returns itself by default.
+        /// </summary>
+        /// <returns>The <see cref="Ball"/> that this one turns into when thrown off screen.</returns>
+        public virtual Ball GetThrowResult()
+        {
+            return this;
+        }
+
+        /// <summary>
+        /// Checks whether this <see cref="Ball"/> would form a match with the other one.
+        /// <para/>
+        /// Returns <code>false</code> by default.
+        /// </summary>
+        /// <param name="other">The other <see cref="Ball"/>.</param>
+        /// <returns>Whether this <see cref="Ball"/> would form a match with the other one.</returns>
+        public virtual bool Matches(Ball other)
+        {
+            return false;
         }
 
         /// <summary>

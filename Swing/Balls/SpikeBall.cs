@@ -5,7 +5,10 @@ using System.Linq;
 
 namespace Swing.Balls
 {
-    public class SpikeBall : Ball
+    /// <summary>
+    /// Represents a spiked <see cref="Ball"/> that destroys other <see cref="Ball"/>s.
+    /// </summary>
+    public sealed class SpikeBall : Ball
     {
         public override bool AppearsInReservoir
         {

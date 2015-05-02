@@ -5,12 +5,22 @@ using System.Linq;
 
 namespace Swing.Balls
 {
-    public class StandardBall : Ball
+    /// <summary>
+    /// Represents the standard <see cref="Ball"/> that is always available and used to make matches.
+    /// </summary>
+    public sealed class StandardBall : Ball
     {
+        private readonly Dictionary<BallColor, Sprite> sprites = new Dictionary<BallColor, Sprite>();
+
         public override bool AppearsInReservoir
         {
             get { return true; }
         }
+
+        /// <summary>
+        /// Gets or sets this <see cref="StandardBall"/>'s color.
+        /// </summary>
+        public BallColor Color { get; set; }
 
         public override uint Cooldown
         {
@@ -49,14 +59,38 @@ namespace Swing.Balls
 
         public override Sprite Sprite
         {
-            get { return null; }
-        }
-
-        public override Type ThrowResult
-        {
-            get { return null; } // typeof(BrickBall);
+            get { return sprites[Color]; }
         }
 
         public override uint Weight { get; private set; }
+
+        public override Ball GetThrowResult()
+        {
+            // return new BrickBall(this);
+            return base.GetThrowResult();
+        }
+
+        public override bool Matches(Ball other)
+        {
+            var asStandardBall = other as StandardBall;
+            if (asStandardBall == null)
+                return false;
+
+            return asStandardBall.Color == Color;
+        }
+
+        public enum BallColor
+        {
+            LightBlue,
+            DarkBlue,
+            Turqoise,
+            LightGreen,
+            DarkGreen,
+            Pink,
+            Red,
+            Purple,
+            Orange,
+            Yellow,
+        }
     }
 }
