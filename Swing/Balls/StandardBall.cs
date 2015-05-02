@@ -9,9 +9,11 @@ namespace Swing.Balls
     /// </summary>
     public sealed class StandardBall : Ball
     {
+        private const int minWeight = 1;
+        private static readonly Random random = new Random();
         private static readonly List<Sprite> sprites = new List<Sprite>();
+        private readonly uint weight;
         private Sprite sprite;
-        private uint weight;
 
         public override bool AppearsInReservoir
         {
@@ -63,9 +65,15 @@ namespace Swing.Balls
             get { return weight; }
         }
 
-        public override Ball GetThrowResult()
+        public StandardBall(Game game)
         {
-            // return new BrickBall(this);
+            sprite = sprites[random.Next((int)Math.Min((int)Math.Max(game.Level, game.MinColorCount), sprites.Count))];
+            weight = (uint)random.Next(minWeight, (int)Math.Max(game.Level, game.MinWeight));
+        }
+
+        public override Ball GetThrowResult(Game game)
+        {
+            // return new HeartBall(this);
             return base.GetThrowResult();
         }
 

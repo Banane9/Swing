@@ -8,7 +8,10 @@ namespace Swing
     /// </summary>
     public class Seesaw
     {
-        #region Members & Properties
+        /// <summary>
+        /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/>.
+        /// </summary>
+        private BallStack leftBallStack;
 
         /// <summary>
         /// How many balls to throw up if the tilt changes significantly enough.
@@ -20,12 +23,31 @@ namespace Swing
         /// </summary>
         private byte maximumExtension;
 
-        #region Tilt Type
+        /// <summary>
+        /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/>.
+        /// </summary>
+        private BallStack rightBallStack;
 
         /// <summary>
         /// To what side the Seesaw is tilted.
         /// </summary>
         private TiltTypes tiltType;
+
+        /// <summary>
+        /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
+        /// </summary>
+        public IEnumerable<Ball> LeftBallStack
+        {
+            get { return (IEnumerable<Ball>)leftBallStack; }
+        }
+
+        /// <summary>
+        /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
+        /// </summary>
+        public IEnumerable<Ball> RightBallStack
+        {
+            get { return (IEnumerable<Ball>)rightBallStack; }
+        }
 
         /// <summary>
         /// Gets the Tilt Type of the <see cref="Seesaw"/>.
@@ -44,50 +66,6 @@ namespace Swing
             }
         }
 
-        #endregion Tilt Type
-
-        #region BallStacks
-
-        #region Left BallStack
-
-        /// <summary>
-        /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/>.
-        /// </summary>
-        private BallStack leftBallStack;
-
-        /// <summary>
-        /// The <see cref="BallStack"/> on the left side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
-        /// </summary>
-        public IEnumerable<Ball> LeftBallStack
-        {
-            get { return (IEnumerable<Ball>)leftBallStack; }
-        }
-
-        #endregion Left BallStack
-
-        #region Right BallStack
-
-        /// <summary>
-        /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/>.
-        /// </summary>
-        private BallStack rightBallStack;
-
-        /// <summary>
-        /// The <see cref="BallStack"/> on the right side of the <see cref="Seesaw"/> as <see cref="IEnumerable"/>.
-        /// </summary>
-        public IEnumerable<Ball> RightBallStack
-        {
-            get { return (IEnumerable<Ball>)rightBallStack; }
-        }
-
-        #endregion Right BallStack
-
-        #endregion BallStacks
-
-        #endregion Members & Properties
-
-        #region Constructor
-
         /// <summary>
         /// Initializes a new Instance of the <see cref="Seesaw"/> Class.
         /// </summary>
@@ -104,10 +82,6 @@ namespace Swing
             rightBallStack = new BallStack();
             rightBallStack.WeightChanged += weightingChanged;
         }
-
-        #endregion Constructor
-
-        #region Methods
 
         /// <summary>
         /// Drops a <see cref="Ball"/> on one of the <see cref="Sides"/> of the <see cref="Seesaw"/>.
@@ -183,51 +157,41 @@ namespace Swing
             TiltType = newTilt;
         }
 
-        #endregion Methods
+        /// <summary>
+        /// Handler Delegate for the BallThrownUp Event.
+        /// </summary>
+        /// <param name="ball">The <see cref="Ball"/> that was thrown up.</param>
+        public delegate void BallThrownUpHandler(Ball ball);
 
-        #region Internal Types
+        /// <summary>
+        /// Handler Delegate for the TiltChanged Event.
+        /// </summary>
+        public delegate void TiltChangedHandler();
 
-        #region BallStack
+        /// <summary>
+        /// Fires when a <see cref="Ball"/> is thrown up from the <see cref="Seesaw"/>.
+        /// </summary>
+        public event BallThrownUpHandler BallThrownUp;
+
+        /// <summary>
+        /// Fires when the Tilt of the <see cref="Seesaw"/> changes.
+        /// </summary>
+        public event TiltChangedHandler TiltChanged;
 
         /// <summary>
         /// Represents a stack of <see cref="Balls"/> on one side of the <see cref="Seesaw"/>
         /// </summary>
         private class BallStack : IEnumerable<Ball>
         {
-            #region Members & Properties
-
             /// <summary>
             /// <see cref="List"/> of <see cref="Ball"/>s in this <see cref="BallStack"/>.
             /// </summary>
             private List<Ball> stack = new List<Ball>();
 
-            #region Weight
-
             /// <summary>
             /// Backing variable for the Weight property.
             /// </summary>
             private uint weight = 0;
-
-            /// <summary>
-            /// Gets the sum of the weights of all the <see cref="Ball"/>s in the <see cref="BallStack"/>.
-            /// </summary>
-            public uint Weight
-            {
-                get { return weight; }
-                private set
-                {
-                    if (weight != value)
-                    {
-                        weight = value;
-
-                        if (WeightChanged != null) WeightChanged();
-                    }
-                }
-            }
-
-            #endregion Weight
-
-            #region Count
 
             /// <summary>
             /// Returns the number of <see cref="Ball"/>s in the <see cref="BallStack"/>.
@@ -236,48 +200,6 @@ namespace Swing
             {
                 get { return stack.Count; }
             }
-
-            #endregion Count
-
-            #endregion Members & Properties
-
-            #region Weight Changed Event
-
-            /// <summary>
-            /// Delegate for the WeightChanged Event.
-            /// </summary>
-            public delegate void WeightChangedHandler();
-
-            /// <summary>
-            /// Fires when the Weight of the <see cref="BallStack"/> changed.
-            /// </summary>
-            public event WeightChangedHandler WeightChanged;
-
-            #endregion Weight Changed Event
-
-            #region IEnumerable Implementation
-
-            /// <summary>
-            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
-            /// </summary>
-            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
-            public IEnumerator<Ball> GetEnumerator()
-            {
-                return stack.GetEnumerator();
-            }
-
-            /// <summary>
-            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
-            /// </summary>
-            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-
-            #endregion IEnumerable Implementation
-
-            #region Indexer
 
             /// <summary>
             /// Indexes the <see cref="BallStack"/>. Starts at the bottom.
@@ -298,9 +220,22 @@ namespace Swing
                 }
             }
 
-            #endregion Indexer
+            /// <summary>
+            /// Gets the sum of the weights of all the <see cref="Ball"/>s in the <see cref="BallStack"/>.
+            /// </summary>
+            public uint Weight
+            {
+                get { return weight; }
+                private set
+                {
+                    if (weight != value)
+                    {
+                        weight = value;
 
-            #region Stack Modification
+                        if (WeightChanged != null) WeightChanged();
+                    }
+                }
+            }
 
             /// <summary>
             /// Drops a <see cref="Ball"/> onto the <see cref="BallStack"/>.
@@ -317,6 +252,24 @@ namespace Swing
             }
 
             /// <summary>
+            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
+            /// </summary>
+            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
+            public IEnumerator<Ball> GetEnumerator()
+            {
+                return stack.GetEnumerator();
+            }
+
+            /// <summary>
+            /// Returns a <see cref="IEnumerator"/> that goes through the <see cref="BallStack"/> from bottom to top.
+            /// </summary>
+            /// <returns>The <see cref="IEnumerator"/> for the <see cref="BallStack"/>.</returns>
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+
+            /// <summary>
             /// Takes the top <see cref="Ball"/> from the <see cref="BallStack"/> and returns it.
             /// </summary>
             /// <returns>The top <see cref="Ball"/>.</returns>
@@ -329,26 +282,16 @@ namespace Swing
                 return ball;
             }
 
-            #endregion Stack Modification
+            /// <summary>
+            /// Delegate for the WeightChanged Event.
+            /// </summary>
+            public delegate void WeightChangedHandler();
+
+            /// <summary>
+            /// Fires when the Weight of the <see cref="BallStack"/> changed.
+            /// </summary>
+            public event WeightChangedHandler WeightChanged;
         }
-
-        #endregion BallStack
-
-        #region TiltTypes
-
-        /// <summary>
-        /// Represents the possible ways a <see cref="Seesaw"/> can be tilted.
-        /// </summary>
-        public enum TiltTypes
-        {
-            Balanced,
-            Left,
-            Right
-        }
-
-        #endregion TiltTypes
-
-        #region Sides
 
         /// <summary>
         /// Represents the possible sides of a <see cref="Seesaw"/>.
@@ -359,41 +302,14 @@ namespace Swing
             Right
         }
 
-        #endregion Sides
-
-        #endregion Internal Types
-
-        #region Events
-
-        #region Balance Changed
-
         /// <summary>
-        /// Handler Delegate for the TiltChanged Event.
+        /// Represents the possible ways a <see cref="Seesaw"/> can be tilted.
         /// </summary>
-        public delegate void TiltChangedHandler();
-
-        /// <summary>
-        /// Fires when the Tilt of the <see cref="Seesaw"/> changes.
-        /// </summary>
-        public event TiltChangedHandler TiltChanged;
-
-        #endregion Balance Changed
-
-        #region Ball Thrown Up
-
-        /// <summary>
-        /// Handler Delegate for the BallThrownUp Event.
-        /// </summary>
-        /// <param name="ball">The <see cref="Ball"/> that was thrown up.</param>
-        public delegate void BallThrownUpHandler(Ball ball);
-
-        /// <summary>
-        /// Fires when a <see cref="Ball"/> is thrown up from the <see cref="Seesaw"/>.
-        /// </summary>
-        public event BallThrownUpHandler BallThrownUp;
-
-        #endregion Ball Thrown Up
-
-        #endregion Events
+        public enum TiltTypes
+        {
+            Balanced,
+            Left,
+            Right
+        }
     }
 }
