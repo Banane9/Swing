@@ -36,6 +36,7 @@
     <Compile Include="Ball.cs" />
     <Compile Include="BallRegistry.cs" />
     <Compile Include="BallReservoir.cs" />
+    <Compile Include="Balls\JokerBall.cs" />
     <Compile Include="Balls\SpikeBall.cs" />
     <Compile Include="Balls\StandardBall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

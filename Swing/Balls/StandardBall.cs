@@ -10,17 +10,12 @@ namespace Swing.Balls
     /// </summary>
     public sealed class StandardBall : Ball
     {
-        private readonly Dictionary<BallColor, Sprite> sprites = new Dictionary<BallColor, Sprite>();
+        private static readonly List<Sprite> sprites = new List<Sprite>();
 
         public override bool AppearsInReservoir
         {
             get { return true; }
         }
-
-        /// <summary>
-        /// Gets or sets this <see cref="StandardBall"/>'s color.
-        /// </summary>
-        public BallColor Color { get; set; }
 
         public override uint Cooldown
         {
@@ -57,10 +52,7 @@ namespace Swing.Balls
             get { return 4; }
         }
 
-        public override Sprite Sprite
-        {
-            get { return sprites[Color]; }
-        }
+        public override Sprite Sprite { get; set; }
 
         public override uint Weight { get; private set; }
 
@@ -76,21 +68,7 @@ namespace Swing.Balls
             if (asStandardBall == null)
                 return false;
 
-            return asStandardBall.Color == Color;
-        }
-
-        public enum BallColor
-        {
-            LightBlue,
-            DarkBlue,
-            Turqoise,
-            LightGreen,
-            DarkGreen,
-            Pink,
-            Red,
-            Purple,
-            Orange,
-            Yellow,
+            return asStandardBall.Sprite == Sprite;
         }
     }
 }

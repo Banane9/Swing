@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swing.Api
+namespace Swing
 {
     /// <summary>
     /// Represents a Ball.

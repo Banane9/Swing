@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Swing.Api
+namespace Swing
 {
     /// <summary>
     /// Represents a static registry for the available Balltypes.
