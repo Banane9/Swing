@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Swing.Api
 {
@@ -51,14 +50,14 @@ namespace Swing.Api
         protected sealed class DescriptionAttribute : Attribute
         {
             /// <summary>
-            /// Gets the two letter code for the language this Dscription is for.
-            /// </summary>
-            public readonly string Language;
-
-            /// <summary>
             /// Gets the Description for the <see cref="Swing.Api.Ball"/> it was used on.
             /// </summary>
             public readonly string Description;
+
+            /// <summary>
+            /// Gets the two letter code for the language this Dscription is for.
+            /// </summary>
+            public readonly string Language;
 
             /// <summary>
             /// Initialized a <see cref="Swing.Api.Ball.DescriptionAttribute"/> for the <see cref="Swing.Api.Ball"/>.
@@ -135,10 +134,12 @@ namespace Swing.Api
         [AttributeUsage(AttributeTargets.Class)]
         protected sealed class AppearsInReservoirAttribute : Attribute
         {
-			/// <summary>
+            /// <summary>
             /// Initializes a <see cref="Swing.Api.Ball.AppearsInReservoirAttribute"/> for the <see cref="Swing.Api.Ball"/>.
-			/// </summary>
-            public AppearsInReservoirAttribute() { }
+            /// </summary>
+            public AppearsInReservoirAttribute()
+            {
+            }
         }
 
         #endregion AppearsInReservoir
@@ -170,19 +171,21 @@ namespace Swing.Api
 
         #region Unmodifiable
 
-		/// <summary>
+        /// <summary>
         /// Marks the <see cref="Swing.Api.Ball"/> it is used on as being unaffected by special <see cref="Swing.Api.Ball"/>s that modify other <see cref="Swing.Api.Ball"/>s.
-		/// </summary>
-		[AttributeUsage(AttributeTargets.Class)]
-		protected sealed class UnmodifiableAttribute : Attribute
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Class)]
+        protected sealed class UnmodifiableAttribute : Attribute
         {
-			/// <summary>
+            /// <summary>
             /// Initializes a <see cref="Swing.Api.Ball.UnmodifableAttribute"/> for the <see cref="Swing.Api.Ball"/>.
-			/// </summary>
-            public UnmodifiableAttribute() { }
+            /// </summary>
+            public UnmodifiableAttribute()
+            {
+            }
         }
 
-        #endregion Modifiable
+        #endregion Unmodifiable
 
         #region ThrowResultsIn
 
@@ -214,23 +217,23 @@ namespace Swing.Api
 
         #region Compressable
 
-		/// <summary>
+        /// <summary>
         /// Marks the <see cref="Swing.Api.Ball"/> it is used on as being compressable and stores at which number of stacked <see cref="Swing.Api.Ball"/>s the compression occurs.
-		/// </summary>
+        /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
-		protected sealed class CompressableAttribute : Attribute
+        protected sealed class CompressableAttribute : Attribute
         {
-			/// <summary>
+            /// <summary>
             /// The number of <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress down into one.
-			/// </summary>
+            /// </summary>
             public readonly byte RequiredBalls;
 
-			/// <summary>
+            /// <summary>
             /// Initializes a <see cref="Swing.Api.Ball.CompressableAttribute"/> for the <see cref="Swing.Api.Ball"/>.
-			/// </summary>
+            /// </summary>
             /// <param name="requiredBalls">Number of required <see cref="Swing.Api.Ball"/>s that need to be stacked for them to compress.</param>
             /// <exception cref="System.ArgumentException"/>
-			public CompressableAttribute(byte requiredBalls)
+            public CompressableAttribute(byte requiredBalls)
             {
                 if (requiredBalls < 2) throw new ArgumentException("More than two Balls need to be required.", "requiredBalls");
 

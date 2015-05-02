@@ -2,17 +2,64 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Swing.Balls
 {
-    [Name("en", "Spike Ball")]
-    [Description("en", "Destroys Balls over and under it on contact.")]
     public class SpikeBall : Ball
     {
-        static SpikeBall()
+        public override bool AppearsInReservoir
         {
-            BallRegistry.AddStandardBall("SpikeBall", typeof(SpikeBall));
+            get { return true; }
+        }
+
+        public override uint Cooldown
+        {
+            get { return 40; }
+        }
+
+        public override string Description
+        {
+            get { return "Spiked Ball, that will occasionally appear in the reservoir and destroy other Balls it's resting on or that are laying on top of it."; }
+        }
+
+        public override bool IsCompressable
+        {
+            get { return false; }
+        }
+
+        public override bool IsUnmodifiable
+        {
+            get { return true; }
+        }
+
+        public override uint Level
+        {
+            get { return 4; }
+        }
+
+        public override string Name
+        {
+            get { return "Spike Ball"; }
+        }
+
+        public override uint RequiredBallsForCompression
+        {
+            get { return uint.MaxValue; }
+        }
+
+        public override Sprite Sprite
+        {
+            get { return null; }
+        }
+
+        public override Type ThrowResult
+        {
+            get { return null; }
+        }
+
+        public override uint Weight
+        {
+            get { return 1; }
         }
     }
 }

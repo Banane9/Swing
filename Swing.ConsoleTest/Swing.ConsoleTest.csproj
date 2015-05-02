@@ -45,10 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Swing.Api\Swing.Api.csproj">
-      <Project>{7fc16c95-af45-420a-ba0e-500969e41d5a}</Project>
-      <Name>Swing.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Swing\Swing.csproj">
       <Project>{dcfea911-cd43-41e5-b651-0f2be8818ba9}</Project>
       <Name>Swing</Name>
